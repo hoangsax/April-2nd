@@ -1,57 +1,66 @@
 /*
-  y y y y y
-x|0 0 0 0 0|
-x|1 1 1 1 0|
-x|1 1 1 1 1|
-
+  x x x x x
+  - - - - -
+y 0 0 0 0 0
+y 1 1 1 1 0
+y 1 1 1 1 1
+  - - - - -
+  Input: [ [0,1,1], [0,1,1], [0,1,1], [0,1,1], [0,0,1]]
 */
-function moveRight(point, matrix) {
-    let [x, y] = point;
-    if (y + 1 < matrix[0].length && matrix[x][y + 1] === 0) {
-        return true;
+class Garden {
+    constructor(matrix) {
+        this.matrix = matrix;
     }
-    return false;
-}
-
-function moveDown(point, matrix) {
-    let [x, y] = point;
-    if (x + 1 < matrix.length && matrix[x + 1][y] === 0) {
-        return true;
-    }
-    return false;
-}
-
-function moveUp(point, matrix) {
-    let [x, y] = point;
-    if (x - 1 >= 0 && matrix[x - 1][y] === 0) {
-        return true;
-    }
-    return false;
-}
-
-function moveLeft(point, matrix) {
-    let [x, y] = point;
-    if (y - 1 >= 0 && matrix[x][y - 1] === 0) {
-        return true;
-    }
-    return false;
-}
-
-function safePathingBombedGarden(matrix){
-    let startingPoint = [];
-    let output = [];
-    for (let i = 0; i < matrix.length; i++) {
-        if (matrix[i][0] === 0) {
-            startingPoint.push([i, 0]);
+    moveRight(point) {
+        let [x, y] = point;
+        if (y + 1 < this.matrix[0].length && this.matrix[x][y + 1] === 0) {
+            return true;
         }
+        return false;
     }
-    while (startingPoint.length > 0) {
-        let currentPoint = startingPoint.shift();
-        let path = [];
-        while (!matrix[currentPoint[0]][currentPoint[1]]) {
-            path.push(currentPoint);
+
+    moveDown(point) {
+        let [x, y] = point;
+        if (x + 1 < this.matrix.length && this.matrix[x + 1][y] === 0) {
+            return true;
+        }
+        return false;
+    }
+
+    moveUp(point) {
+        let [x, y] = point;
+        if (x - 1 >= 0 && this.matrix[x - 1][y] === 0) {
+            return true;
+        }
+        return false;
+    }
+
+    moveLeft(point) {
+        let [x, y] = point;
+        if (y - 1 >= 0 && this.matrix[x][y - 1] === 0) {
+            return true;
+        }
+        return false;
+    }
+
+    pathingWithPoint(point) {
+
+    }
+
+    safePathingBombedGarden(matrix){
+        let startingPoint = [];
+        let output = [];
+        for (let i = 0; i < matrix.length; i++) {
+            if (matrix[i][0] === 0) {
+                startingPoint.push([i, 0]);
+            }
+        }
+        while (startingPoint.length > 0) {
 
         }
+
     }
 
 }
+
+console.log(safePathingBombedGarden)

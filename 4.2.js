@@ -61,7 +61,7 @@ function howToReadNumberInVietnamese(number) {
     let parts = numberPartPerUnit(number);
     if (parts.length === 2) {
         if (parts[0].length >= 2) {
-            result = read3DigitsInVietnamese(parts[0].slice(0, -1)) + units[2] + ' ' + (parts[0].slice(-1) === '0' ? '' : digits[parseInt(parts[0].slice(-1))] + units[1]) + ' ' + read3DigitsInVietnamese(parts[1]);
+            result = read3DigitsInVietnamese(parts[0].slice(0, -1)) + units[2] + (parts[0].slice(-1) === '0' ? '' : ' ' + digits[parseInt(parts[0].slice(-1))] + units[1]) + ' ' + read3DigitsInVietnamese(parts[1]);
         }
         else {
             result = digits[parseInt(parts[0])] + units[1] + ' ' + read3DigitsInVietnamese(parts[1]);
@@ -74,6 +74,6 @@ function howToReadNumberInVietnamese(number) {
 }
 console.log(howToReadNumberInVietnamese(15));
 console.log(howToReadNumberInVietnamese(200));
-console.log(howToReadNumberInVietnamese(20000));
+console.log(howToReadNumberInVietnamese(20021));
 
 console.log(howToReadNumberInVietnamese(112345));
