@@ -36,37 +36,44 @@ function read3DigitsInVietnamese(numString) {
     }
     else if (numString.length === 3) {
         let result = '';
-        if (numString[0] !== '0'){
-            result += digits[parseInt(numString[0])] + ' trăm';
-        }
         if (numString[1] === '0') {
             if (numString[2] !== '0') {
                 result += ' linh ' + digits[parseInt(numString[2])];
             }
+            if (numString[0] !== '0') {
+                result = digits[parseInt(numString[0])] + ' trăm' + result;
+            }
         }
         else {
-            result += ' ' + read3DigitsInVietnamese(numString.slice(1));
+            result += digits[parseInt(numString[0])] + ' trăm' + ' ' + read3DigitsInVietnamese(numString.slice(1));
         }
         return result;
     }
 }
 
 function howToReadNumberInVietnamese(number) {
-    const units = ['', 'nghìn'];
+    if (number < 0 || number >= 1000000) {
+        return 'Input must be between 0 and 999,999';
+    }
+    const units = ['', ' nghìn', ' vạn'];
     const digits = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
     let result = '';
     let parts = numberPartPerUnit(number);
-    for (let i = 0; i < parts.length; i++) {
-        result += read3DigitsInVietnamese(parts[i]) + ' ' + units[parts.length - 1 - i] + ' ';
+    if (parts.length === 2) {
+        if (parts[0].length >= 2) {
+            result = read3DigitsInVietnamese(parts[0].slice(0, -1)) + units[2] + ' ' + (parts[0].slice(-1) === '0' ? '' : digits[parseInt(parts[0].slice(-1))] + units[1]) + ' ' + read3DigitsInVietnamese(parts[1]);
+        }
+        else {
+            result = digits[parseInt(parts[0])] + units[1] + ' ' + read3DigitsInVietnamese(parts[1]);
+        }
+    }
+    else {
+        result = read3DigitsInVietnamese(parts[0]);
     }
     return result;
 }
-console.log(howToReadNumberInVietnamese(20));
+console.log(howToReadNumberInVietnamese(15));
 console.log(howToReadNumberInVietnamese(200));
-console.log(howToReadNumberInVietnamese(2000));
+console.log(howToReadNumberInVietnamese(20000));
 
-console.log(howToReadNumberInVietnamese(12345));
-let temp = numberPartPerUnit(123456);
-for (let i = 0; i < temp.length; i++) {
-    console.log((temp[i]));
-}
+console.log(howToReadNumberInVietnamese(112345));
